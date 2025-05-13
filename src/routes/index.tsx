@@ -33,7 +33,7 @@ const routes: RouteObject[] = [
       <ForgetPasswordPage
         config={{
           title: "Jigsaw",
-          logo: "/src/assets/logos/jigsawLogo.svg",
+          logo: "src/assets/logos/jigsawLogo.svg",
           bgImage: "/src/assets/images/jigsawCoverImage.jpeg",
           logoLink: "https://jigsaw-indol.vercel.app/",
         }}
