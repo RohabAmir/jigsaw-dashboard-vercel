@@ -20,8 +20,8 @@ const routes: RouteObject[] = [
       <Login
         config={{
           title: "Jigsaw",
-          logo: "/src/assets/logos/jigsawLogo.svg",
-          bgImage: "/src/assets/images/jigsawCoverImage.jpeg",
+          logo: "src/assets/logos/jigsawLogo.svg",
+          bgImage: "src/assets/images/jigsawCoverImage.jpeg",
           logoLink: "https://jigsaw-indol.vercel.app/",
         }}
       />
