@@ -1,4 +1,3 @@
-import { ModeToggle } from "@/components/global/mode-toggle";
 import { ForgetPasswordForm } from "./forgetPassword-form";
 
 interface ForgetPasswordPageConfig {

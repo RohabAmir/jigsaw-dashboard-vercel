@@ -35,13 +35,10 @@ import {
 } from "@tanstack/react-table";
 import {
   CheckCircle2Icon,
-  CheckCircleIcon,
-  ChevronDownIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   ChevronsLeftIcon,
   ChevronsRightIcon,
-  ColumnsIcon,
   GripVerticalIcon,
   LoaderIcon,
   MoreVerticalIcon,
@@ -49,7 +46,7 @@ import {
   TrendingUpIcon,
 } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-import { toast } from "sonner";
+
 import { z } from "zod";
 
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -61,12 +58,10 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";

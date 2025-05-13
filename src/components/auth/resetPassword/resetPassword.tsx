@@ -1,4 +1,3 @@
-import { ModeToggle } from "@/components/global/mode-toggle";
 import { ResetPasswordForm } from "./resetPassword-form";
 
 interface ResetPasswordPageConfig {

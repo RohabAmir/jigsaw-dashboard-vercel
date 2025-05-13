@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
-import { Eye, EyeOff, ArrowLeft, ChevronLeft } from "lucide-react";
+import { Eye, EyeOff, ChevronLeft } from "lucide-react";
 import { useState } from "react";
 
 const ResetSchema = z
