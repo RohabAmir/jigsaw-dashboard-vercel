@@ -20,8 +20,8 @@ const routes: RouteObject[] = [
       <Login
         config={{
           title: "Jigsaw",
-          logo: "src/assets/logos/jigsawLogo.svg",
-          bgImage: "src/assets/images/jigsawCoverImage.jpeg",
+          logo: "/assets/logos/jigsawLogo.svg",
+          bgImage: "/assets/images/jigsawCoverImage.jpeg",
           logoLink: "https://jigsaw-indol.vercel.app/",
         }}
       />
@@ -33,8 +33,8 @@ const routes: RouteObject[] = [
       <ForgetPasswordPage
         config={{
           title: "Jigsaw",
-          logo: "src/assets/logos/jigsawLogo.svg",
-          bgImage: "/src/assets/images/jigsawCoverImage.jpeg",
+          logo: "/assets/logos/jigsawLogo.svg",
+          bgImage: "/assets/images/jigsawCoverImage.jpeg",
           logoLink: "https://jigsaw-indol.vercel.app/",
         }}
       />
@@ -46,8 +46,8 @@ const routes: RouteObject[] = [
       <ResetPasswordPage
         config={{
           title: "Jigsaw",
-          logo: "/src/assets/logos/jigsawLogo.svg",
-          bgImage: "/src/assets/images/jigsawCoverImage.jpeg",
+          logo: "/assets/logos/jigsawLogo.svg",
+          bgImage: "/assets/images/jigsawCoverImage.jpeg",
           logoLink: "https://jigsaw-indol.vercel.app/",
         }}
       />
@@ -69,7 +69,7 @@ const routes: RouteObject[] = [
           <Dashboard
             config={{
               title: "Jigsaw.",
-              logo: "/src/assets/logos/jigsawLogo.svg",
+              logo: "/assets/logos/jigsawLogo.svg",
             }}
           />
         </CoverImageWrapper>
@@ -84,7 +84,7 @@ const routes: RouteObject[] = [
           <Pages
             config={{
               title: "Jigsaw.",
-              logo: "/src/assets/logos/jigsawLogo.svg",
+              logo: "/assets/logos/jigsawLogo.svg",
             }}
           />
         </CoverImageWrapper>
