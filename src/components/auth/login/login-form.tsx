@@ -43,7 +43,7 @@ export function LoginForm({
     },
   });
 
-  function onLoginSubmit(data: z.infer<typeof LoginSchema>) {
+  function onLoginSubmit() {
     // Simulate without API call
     const mockToken = "mock-jwt-token-" + Math.random().toString(36).slice(2);
     login(mockToken);
