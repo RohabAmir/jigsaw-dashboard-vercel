@@ -29,7 +29,7 @@ const data = {
   user: {
     name: "admin",
     email: "admin@gmail.com",
-    avatar: "/src/assets/logos/jigsawLogo.svg",
+    avatar: "/assets/logos/jigsawLogo.svg",
   },
   navMain: [
     {

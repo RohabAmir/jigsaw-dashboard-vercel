@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import coverPageImage from "/assets/images/jigsawCoverImage1.png"; 
 
 import { FC } from "react";
 
@@ -15,7 +16,7 @@ return (
         onAnimationComplete={onAnimationComplete}
         className="fixed top-0 left-0 w-screen h-screen bg-cover bg-center z-[9999] fade-out  ease-in-out"
         style={{
-            backgroundImage: `url(/assets/images/jigsawCoverImage1.png)`,
+            backgroundImage: `url(${coverPageImage})`,
         }}
     />
 );
