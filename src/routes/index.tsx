@@ -12,6 +12,7 @@ import ProtectedRoute from "@/components/global/protectedRoute";
 import { CoverImageWrapper } from "@/components/global/CoverImageWrapper";
 import AddUserPage from "@/components/addUser/addUser";
 import Pages from "@/pages/PagesModule/page";
+import Sections from "@/pages/SectionModule/page";
 
 const routes: RouteObject[] = [
   {
@@ -21,7 +22,8 @@ const routes: RouteObject[] = [
         config={{
           title: "Jigsaw",
           logo: "/assets/logos/jigsawLogo.svg",
-          bgImage: "/assets/images/jigsawCoverImage.jpeg",
+          bgImageWhite: "/assets/images/newJigsawCoverImageWhite.png",
+          bgImageDark: "/assets/images/newJigsawCoverImageBlack.png",
           logoLink: "https://jigsaw-indol.vercel.app/",
         }}
       />
@@ -34,7 +36,8 @@ const routes: RouteObject[] = [
         config={{
           title: "Jigsaw",
           logo: "/assets/logos/jigsawLogo.svg",
-          bgImage: "/assets/images/jigsawCoverImage.jpeg",
+          bgImageWhite: "/assets/images/newJigsawCoverImageWhite.png",
+          bgImageDark: "/assets/images/newJigsawCoverImageBlack.png",
           logoLink: "https://jigsaw-indol.vercel.app/",
         }}
       />
@@ -47,7 +50,8 @@ const routes: RouteObject[] = [
         config={{
           title: "Jigsaw",
           logo: "/assets/logos/jigsawLogo.svg",
-          bgImage: "/assets/images/jigsawCoverImage.jpeg",
+          bgImageWhite: "/assets/images/newJigsawCoverImageWhite.png",
+          bgImageDark: "/assets/images/newJigsawCoverImageBlack.png",
           logoLink: "https://jigsaw-indol.vercel.app/",
         }}
       />
@@ -82,6 +86,21 @@ const routes: RouteObject[] = [
       <ProtectedRoute>
         <CoverImageWrapper>
           <Pages
+            config={{
+              title: "Jigsaw.",
+              logo: "/assets/logos/jigsawLogo.svg",
+            }}
+          />
+        </CoverImageWrapper>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/sections",
+    element: (
+      <ProtectedRoute>
+        <CoverImageWrapper>
+          <Sections
             config={{
               title: "Jigsaw.",
               logo: "/assets/logos/jigsawLogo.svg",

@@ -1,9 +1,12 @@
+import { ModeToggle } from "@/components/global/mode-toggle";
 import { ResetPasswordForm } from "./resetPassword-form";
+import { useTheme } from "@/components/global/theme-provider";
 
 interface ResetPasswordPageConfig {
   title: string;
   logo: string;
-  bgImage: string;
+  bgImageWhite: string;
+  bgImageDark: string;
   logoLink?: string;
 }
 interface ResetPasswordPageProps {
@@ -11,7 +14,9 @@ interface ResetPasswordPageProps {
 }
 
 export default function ForgetPasswordPage({ config }: ResetPasswordPageProps) {
-  const { title, logo, bgImage, logoLink} = config;
+  const { title, logo, bgImageWhite, bgImageDark, logoLink } = config;
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
@@ -22,7 +27,7 @@ export default function ForgetPasswordPage({ config }: ResetPasswordPageProps) {
               <img src={logo} alt={`${title} Logo`} />
             </div>
           </a>
-          {/* <ModeToggle/>  */}
+          <ModeToggle />
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
@@ -33,11 +38,18 @@ export default function ForgetPasswordPage({ config }: ResetPasswordPageProps) {
           <span>{title} ® 2025 All Right Reserved.</span>
         </div>
       </div>
-      <div className="relative hidden h-full flex-1 lg:block">
+      <div className="relative hidden h-full flex-1 lg:block overflow-hidden">
         <img
-          src={bgImage}
+          src={isDark ? bgImageDark : bgImageWhite}
           alt="Website Cover Image"
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          className="
+      absolute inset-0 h-full w-full object-cover
+      transition-opacity duration-500 ease-in-out
+    "
+          style={{
+            opacity: 0,
+            animation: "fadeIn 0.5s forwards",
+          }}
         />
       </div>
     </div>

@@ -1,10 +1,12 @@
 import { LoginForm } from "@/components/auth/login/login-form";
 import { ModeToggle } from "@/components/global/mode-toggle";
+import { useTheme } from "@/components/global/theme-provider";
 
 interface LoginPageConfig {
   title: string;
   logo: string;
-  bgImage: string;
+  bgImageDark: string;
+  bgImageWhite: string;
   logoLink?: string;
 }
 
@@ -13,7 +15,9 @@ interface LoginPageProps {
 }
 
 export default function LoginPage({ config }: LoginPageProps) {
-  const { title, logo, bgImage, logoLink } = config;
+  const { title, logo, bgImageDark, bgImageWhite, logoLink } = config;
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
@@ -35,11 +39,18 @@ export default function LoginPage({ config }: LoginPageProps) {
           <span>{title} ® 2025 All Right Reserved.</span>
         </div>
       </div>
-      <div className="relative hidden h-full flex-1 lg:block">
+      <div className="relative hidden h-full flex-1 lg:block overflow-hidden">
         <img
-          src={bgImage}
+          src={isDark ? bgImageDark : bgImageWhite}
           alt="Website Cover Image"
-          className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          className="
+      absolute inset-0 h-full w-full object-cover
+      transition-opacity duration-500 ease-in-out
+    "
+          style={{
+            opacity: 0,
+            animation: "fadeIn 0.5s forwards",
+          }}
         />
       </div>
     </div>

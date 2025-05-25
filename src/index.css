@@ -23,9 +23,6 @@
   --font-geist-sans: "Montserrat", sans-serif;
 }
 
-
-
-
 html {
   line-height: 1.5;
   -webkit-text-size-adjust: 100%;
@@ -35,10 +32,16 @@ html {
   font-family: var(--font-geist-sans);
   font-feature-settings: normal;
   font-variation-settings: normal;
-  -webkit-tap-highlight-color: transparent
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
+
+
 @theme inline {
+  --container-sm: 28rem;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -93,7 +96,7 @@ html {
   --accent: oklch(0.967 0.001 286.375);
   --accent-foreground: oklch(0.21 0.006 285.885);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0.004 286.32);
+  --border: oklch(0.82 0.004 286.32); 
   --input: oklch(0.92 0.004 286.32);
   --ring: oklch(0.705 0.015 286.067);
   --chart-1: 318, 90%, 50%;
@@ -111,13 +114,13 @@ html {
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.705 0.015 286.067);
   /* --card-gradient: oklch(1 0 0); */
-  --card-gradient: linear-gradient(
-    90deg,
-    #9ca2f5 0%,
-    #f17ecf 100%
-  );
+  --card-gradient: linear-gradient(90deg, #2836b4 0%, #f17ecf 100%);
   --card-border: transparent;
-  --add-user-bg : linear-gradient(90deg,  #131752 0%, oklch(0.52 0.1919 342.72)  100%);
+  --add-user-bg: linear-gradient(
+    90deg,
+    #131752 0%,
+    oklch(0.52 0.1919 342.72) 100%
+  );
 }
 
 .dark {
@@ -148,7 +151,7 @@ html {
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: #AC2785;
+  --sidebar-accent: #ac2785;
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.552 0.016 285.938);
@@ -158,7 +161,11 @@ html {
     oklch(0.52 0.1919 342.72) 100%
   );
   --card-border: transparent;
-  --add-user-bg : linear-gradient(90deg, #131752  0%, oklch(0.52 0.1919 342.72)  100%);
+  --add-user-bg: linear-gradient(
+    90deg,
+    #2E337B 0%,
+    oklch(0.52 0.1919 342.72) 100%
+  );
 }
 
 @layer base {
@@ -168,4 +175,26 @@ html {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* Customize scrollbar */
+::-webkit-scrollbar {
+  width: 8px; 
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ac2785; 
+  border-radius: 4px; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2E337B; 
 }

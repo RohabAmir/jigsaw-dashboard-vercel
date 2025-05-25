@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import {
   DndContext,
@@ -39,12 +41,12 @@ import {
   ChevronRightIcon,
   ChevronsLeftIcon,
   ChevronsRightIcon,
+  EditIcon,
+  GripVerticalIcon,
   MoreVerticalIcon,
-  PlusIcon,
   XCircleIcon,
 } from "lucide-react";
 import { z } from "zod";
-
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -76,7 +78,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
-import { CreatePageFormValues, CreatePageSheet } from "../global/Sheet";
 import { useNavigate } from "react-router-dom";
 
 interface DataTableProps {
@@ -85,19 +86,38 @@ interface DataTableProps {
 
 export const schema = z.object({
   id: z.number(),
-  page_name: z.string(),
-  parent_page: z.string(),
+  section_name: z.string(),
   status: z.string(),
 });
-
 type PageRow = z.infer<typeof schema>;
 
-const parentOptions = [
-  { label: "Home", value: "home" },
-  { label: "About Us", value: "About-Us" },
-  { label: "Contact Us", value: "Contact-Us" },
-  { label: "Products", value: "Products" },
-];
+//-->> Funtion for Drag Event
+function DragHandle({ id }: { id: number }) {
+  const { attributes, listeners } = useSortable({
+    id,
+  });
+
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            {...attributes}
+            {...listeners}
+            variant="ghost"
+            size="icon"
+            className="size-7 text-muted-foreground  cursor-pointer"
+          >
+            <GripVerticalIcon />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Drag to reorder</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+}
 
 function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
   const { transform, transition, setNodeRef, isDragging } = useSortable({
@@ -124,8 +144,9 @@ function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
   );
 }
 
-export function DataTable({ data: initialData = [] }: DataTableProps) {
+export function SectionDataTable({ data: initialData = [] }: DataTableProps) {
   const navigate = useNavigate();
+  const [data, setData] = React.useState<PageRow[]>(initialData);
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
@@ -143,47 +164,23 @@ export function DataTable({ data: initialData = [] }: DataTableProps) {
       rows.map((row) => (row.id === id ? { ...row, status: newStatus } : row))
     );
   };
-  const [data, setData] = React.useState<PageRow[]>(initialData);
-
-  const handleCreate = (vals: CreatePageFormValues) => {
-    const nextId = data.length + 1;
-    setData((prev) => [
-      ...prev,
-      {
-        id: nextId,
-        page_name: vals.pageName,
-        parent_page: vals.addParentPage === "yes" ? vals.parentPage! : "",
-        status: "Active",
-      },
-    ]);
-  };
 
   // -- column defs ---------------------------------------------------------
   const columns: ColumnDef<PageRow>[] = [
     {
+      id: "drag",
+      header: () => null,
+      cell: ({ row }) => <DragHandle id={row.original.id} />,
+    },
+    {
       accessorKey: "id",
       header: "ID",
-      cell: ({ getValue }) => <div className="w-32">{getValue<number>()}</div>,
-      enableHiding: false,
-    },
-    {
-      accessorKey: "page_name",
-      header: "Page Name",
-      cell: ({ row }) => (
-        <Badge variant="secondary" className="px-1.5">
-          {row.original.page_name}
-        </Badge>
-      ),
-      enableHiding: false,
-    },
-    {
-      accessorKey: "parent_page",
-      header: "Parent Page",
-      cell: ({ row }) => (
-        <div className="w-32">
-          <Badge className="px-1.5">{row.original.parent_page}</Badge>
+      cell: ({ getValue }) => (
+        <div className="w-1">
+          <span>{getValue<number>()}</span>
         </div>
       ),
+      enableHiding: false,
     },
     {
       accessorKey: "status",
@@ -220,30 +217,47 @@ export function DataTable({ data: initialData = [] }: DataTableProps) {
       },
     },
     {
+      accessorKey: "section_name",
+      header: "Section Name",
+      cell: ({ row }) => (
+        <Badge variant="secondary" className="px-1.5 font-semibold">
+          {row.original.section_name}
+        </Badge>
+      ),
+      enableHiding: false,
+    },
+    {
       id: "actions",
       header: "Actions",
       cell: () => (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              className="flex size-8 text-muted-foreground data-[state=open]:bg-muted cursor-pointer hover:bg-muted"
-              size="icon"
-            >
-              <MoreVerticalIcon />
-              <span className="sr-only">Open menu</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            onClick={() => navigate("/sections")}
-            align="end"
-            className="w-32 cursor-pointer"
-          >
-            <DropdownMenuItem className="cursor-pointer">
-              <PlusIcon /> Add Section
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="flex size-8 text-muted-foreground data-[state=open]:bg-muted cursor-pointer hover:bg-muted"
+                  size="icon"
+                >
+                  <MoreVerticalIcon />
+                  <span className="sr-only">Open menu</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                onClick={() => navigate("/sections")}
+                align="end"
+                className="w-32 cursor-pointer"
+              >
+                <DropdownMenuItem className="cursor-pointer">
+                  <EditIcon /> Edit Section
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Open actions menu</p>
+          </TooltipContent>
+        </Tooltip>
       ),
     },
   ];
@@ -251,9 +265,9 @@ export function DataTable({ data: initialData = [] }: DataTableProps) {
   // -- DnD & table setup --------------------------------------------------
   const sortableId = React.useId();
   const sensors = useSensors(
-    useSensor(MouseSensor),
-    useSensor(TouchSensor),
-    useSensor(KeyboardSensor)
+    useSensor(MouseSensor, {}),
+    useSensor(TouchSensor, {}),
+    useSensor(KeyboardSensor, {})
   );
   const dataIds = React.useMemo<UniqueIdentifier[]>(
     () => data.map((d) => d.id),
@@ -301,23 +315,6 @@ export function DataTable({ data: initialData = [] }: DataTableProps) {
       defaultValue="outline"
       className="flex w-full flex-col justify-start gap-6"
     >
-      <div className="flex items-center justify-between px-4 lg:px-6">
-        <Label htmlFor="view-selector" className="sr-only">
-          View
-        </Label>
-        <div className="flex items-center gap-2">
-          <CreatePageSheet
-            trigger={
-              <Button variant="outline" size="sm" className="cursor-pointer">
-                <PlusIcon />
-                <span className="lg:inline">Create Page</span>
-              </Button>
-            }
-            parentOptions={parentOptions}
-            onCreate={handleCreate}
-          />
-        </div>
-      </div>
       <TabsContent
         value="outline"
         className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6"
@@ -331,10 +328,7 @@ export function DataTable({ data: initialData = [] }: DataTableProps) {
             id={sortableId}
           >
             <Table>
-              <TableHeader
-                style={{ background: "var(--add-user-bg)" }}
-                className="sticky top-0 z-10 hover:bg-[#AC2785]  text-white"
-              >
+              <TableHeader style={{ background: "var(--add-user-bg)" }}  className="sticky top-0 z-10  hover:bg-[#2E337B] text-white">
                 {table.getHeaderGroups().map((headerGroup) => (
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
@@ -368,7 +362,7 @@ export function DataTable({ data: initialData = [] }: DataTableProps) {
                       colSpan={columns.length}
                       className="h-24 text-center"
                     >
-                      No Page Available.
+                      No Section Available.
                     </TableCell>
                   </TableRow>
                 )}
